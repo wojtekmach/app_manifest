@@ -1,0 +1,2 @@
+defmodule AppManifest do
+end
