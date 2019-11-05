@@ -5,7 +5,7 @@ defmodule AppManifest.MixProject do
     [
       app: :app_manifest,
       version: "0.1.0",
-      elixir: "~> 1.9",
+      elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
@@ -13,7 +13,7 @@ defmodule AppManifest.MixProject do
 
   def application do
     [
-      extra_applications: []
+      extra_applications: [:mix]
     ]
   end
 
