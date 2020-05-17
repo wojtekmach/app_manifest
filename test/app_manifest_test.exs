@@ -3,16 +3,20 @@ defmodule AppManifestTest do
 
   test "build/1" do
     assert AppManifest.build([:app_manifest]) == [
-             {AppManifest, %{since: "0.1.0"},
+             {AppManifest, :none, %{since: "0.1.0"},
               [
-                {:function, :build, 1, %{since: "0.1.0"}},
-                {:function, :to_iodata, 1, %{}},
-                {:type, :app, 0, %{}},
-                {:type, :entry, 0, %{}},
-                {:type, :manifest, 0, %{}},
-                {:type, :metadata, 0, %{}}
+                {{:function, :build, 1}, :none, %{since: "0.1.0"}},
+                {{:function, :to_iodata, 1}, :none, %{}},
+                {{:type, :app, 0}, :none, %{}},
+                {{:type, :doc, 0}, :none, %{}},
+                {{:type, :entry, 0}, :none, %{}},
+                {{:type, :manifest, 0}, :none, %{}},
+                {{:type, :metadata, 0}, :none, %{}}
               ]},
-             {Mix.Tasks.AppManifest, %{}, []}
+             {Mix.Tasks.AppManifest, :documented, %{},
+              [
+                {{:function, :run, 1}, :hidden, %{}}
+              ]}
            ]
   end
 
@@ -24,14 +28,16 @@ defmodule AppManifestTest do
       |> IO.iodata_to_binary()
 
     assert string == """
-           AppManifest (since: 0.1.0)
-           AppManifest.build/1 (since: 0.1.0)
-           AppManifest.to_iodata/1
-           t:AppManifest.app/0
-           t:AppManifest.entry/0
-           t:AppManifest.manifest/0
-           t:AppManifest.metadata/0
-           Mix.Tasks.AppManifest
+           AppManifest (none) (since: 0.1.0)
+           AppManifest.build/1 (none) (since: 0.1.0)
+           AppManifest.to_iodata/1 (none)
+           t:AppManifest.app/0 (none)
+           t:AppManifest.doc/0 (none)
+           t:AppManifest.entry/0 (none)
+           t:AppManifest.manifest/0 (none)
+           t:AppManifest.metadata/0 (none)
+           Mix.Tasks.AppManifest (documented)
+           Mix.Tasks.AppManifest.run/1 (hidden)
            """
   end
 end
